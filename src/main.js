@@ -5,17 +5,16 @@ import WebGL from 'three/examples/jsm/capabilities/WebGL.js'
 const scene = new THREE.Scene()
 
 // 创建矩形物体
-const geometry = new THREE.BoxGeometry(10, 10, 10, 1, 1, 1)
+const geometry = new THREE.BoxGeometry(10, 10, 10, 5, 1, 1)
 const geometry1 = new THREE.CapsuleGeometry(1, 1, 4, 8,)
 // 创建材质对象
 const material = new THREE.MeshBasicMaterial({color: 0xffdd00, wireframe: true})
-const material1 = new THREE.MeshBasicMaterial({color: 0x00ff00})
+const material1 = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true})
 // 创建网格模型：表示生活中的物品
 const mesh = new THREE.Mesh(geometry, material)
 const mesh1 = new THREE.Mesh(geometry1, material1)
 // 设置物品所在位置
-mesh.position.set(0, 0, 0)
-
+mesh.position.set(5, 5, 5)
 
 // 将物品添加到场景中
 scene.add(mesh)
@@ -24,7 +23,7 @@ scene.add(mesh1)
 // 创建一个透视投影相机
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
 // 相机位置
-camera.position.set(20, 20, 20)
+camera.position.set(100, 100, 100)
 // 相机观测的位置坐标（相机的视线）
 // camera.lookAt(0,0,0)
 camera.lookAt(mesh.position) // 相机指向物品模型
@@ -46,10 +45,14 @@ const animate = () => {
     renderer.render(scene, camera)
 }
 
+// 创建一个三维坐标系
+const axesHelper = new THREE.AxesHelper(15)
+scene.add(axesHelper)
+
 // 兼容性检查
-if(WebGL.isWebGLAvailable()) {
+if (WebGL.isWebGLAvailable()) {
     animate()
 } else {
     const warning = WebGL.getWebGLErrorMessage()
-    console.warn({ warning })
+    console.warn({warning})
 }
