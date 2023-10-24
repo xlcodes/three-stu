@@ -40,15 +40,23 @@ scene.add(directionalLight)
 // 创建一个透视投影相机
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
 // 相机位置
-camera.position.set(300, 300, 300)
+camera.position.set(100, 100, 100)
 // 相机观测的位置坐标（相机的视线）
 camera.lookAt(mesh.position) // 相机指向物品模型
 
 // 创建一个渲染器
-const renderer = new THREE.WebGLRenderer()
+const renderer = new THREE.WebGLRenderer({
+    antialias: true, // 抗锯齿
+})
 renderer.setSize(window.innerWidth, window.innerHeight)
+// 设置像素比，以免渲染模糊，是一个优化项
+renderer.setPixelRatio(window.devicePixelRatio)
+// 设置渲染颜色及透明度
+renderer.setClearColor(0x444444, 0.5)
 renderer.render(scene, camera)
 document.body.appendChild(renderer.domElement)
+
+console.log(`查看当前设备像素比：${window.devicePixelRatio}`)
 
 // 创建一个三维坐标系
 const axesHelper = new THREE.AxesHelper(15)
