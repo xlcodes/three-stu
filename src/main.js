@@ -58,7 +58,7 @@ scene.add(axesHelper)
 // 添加轨道控制器
 const controls = new OrbitControls(camera, renderer.domElement)
 
-
+controls.update()
 
 // controls.addEventListener('change', () => {
 //     renderer.render(scene, camera)
@@ -83,3 +83,13 @@ const animate = () => {
 }
 
 animate()
+
+// 窗口缩放事件
+window.addEventListener('resize', () => {
+    // 重置渲染器输出结果
+    renderer.setSize(window.innerWidth, window.innerHeight)
+    // 设置相机观察范围
+    camera.aspect = window.innerWidth / window.innerHeight
+    // 更新投影矩阵
+    camera.updateProjectionMatrix()
+})
