@@ -5,30 +5,29 @@ import Stats from "three/addons/libs/stats.module.js";
 const scene = new THREE.Scene()
 
 // 创建矩形物体
-const geometry = new THREE.BoxGeometry(10, 10, 10)
+// const geometry = new THREE.BoxGeometry(10, 10, 10)
+// 创建球体
+// const geometry = new THREE.SphereGeometry(10, 50, 50)
+// 创建圆柱体
+// const geometry = new THREE.CylinderGeometry(50, 50, 100)
+// 矩形平面
+// const geometry = new THREE.PlaneGeometry(200, 200)
+// 圆形平面
+const geometry = new THREE.CircleGeometry(200)
+
 // 创建材质对象
 const material = new THREE.MeshLambertMaterial({
     color: 0xffdd00,
     wireframe: false,
     transparent: true,
-    opacity: 0.5
+    opacity: 0.5,
+    side: THREE.DoubleSide, // 正反面可见
 })
 const mesh = new THREE.Mesh(geometry, material)
 
-// 批量创建长方体
-const num = 10
-const step = 15
-// 沿着 x, y 轴阵列多个正方体
-for (let i = 0; i < num; i++) {
-    for (let j = 0; j < num; j++) {
-        // 创建网格模型：表示生活中的物品
-        const mesh = new THREE.Mesh(geometry, material)
-        // 设置物品所在位置
-        mesh.position.set(i * step, 0, j * step)
-        // 将物品添加到场景中
-        scene.add(mesh)
-    }
-}
+mesh.position.set(0, 0, 0)
+// 将物品添加到场景中
+scene.add(mesh)
 
 // 环境光
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
