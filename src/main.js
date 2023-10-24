@@ -16,10 +16,27 @@ mesh.position.set(5, 5, 5)
 // 将物品添加到场景中
 scene.add(mesh)
 
-// 创建电光源
-const pointLight = new THREE.PointLight(0xffffff, 100.0, 100)
-pointLight.position.set(10, 10, 10)
-scene.add(pointLight)
+// // 创建点光源
+// const pointLight = new THREE.PointLight(0xffffff, 1000, 100)
+// pointLight.position.set(-20, -20, -20)
+// scene.add(pointLight)
+
+// // 光源辅助对象
+// const pointLightHelper = new THREE.PointLightHelper(pointLight, 1)
+// scene.add(pointLightHelper)
+
+// 环境光
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
+scene.add(ambientLight)
+
+// 平行光
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
+directionalLight.position.set(20, 20, 0)
+directionalLight.target = mesh
+scene.add(directionalLight)
+// 平行光辅助对象
+const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 10)
+scene.add(directionalLightHelper)
 
 // 创建一个透视投影相机
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
