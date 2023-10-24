@@ -1,29 +1,37 @@
 import * as THREE from 'three'
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
-import WebGL from 'three/examples/jsm/capabilities/WebGL.js'
+import Stats from "three/addons/libs/stats.module.js";
 // 创建一个场景
 const scene = new THREE.Scene()
 
 // 创建矩形物体
-const geometry = new THREE.BoxGeometry(10, 10, 10, 5, 1, 1)
+const geometry = new THREE.BoxGeometry(10, 10, 10)
 // 创建材质对象
 const material = new THREE.MeshLambertMaterial({color: 0xffdd00, wireframe: false})
 // 创建网格模型：表示生活中的物品
 const mesh = new THREE.Mesh(geometry, material)
 // 设置物品所在位置
 mesh.position.set(0, 0, 0)
-
 // 将物品添加到场景中
 scene.add(mesh)
 
-// // 创建点光源
-// const pointLight = new THREE.PointLight(0xffffff, 1000, 100)
-// pointLight.position.set(-20, -20, -20)
-// scene.add(pointLight)
-
-// // 光源辅助对象
-// const pointLightHelper = new THREE.PointLightHelper(pointLight, 1)
-// scene.add(pointLightHelper)
+// 批量创建长方体
+const num = 7500
+for (let i = 0; i < num; i++) {
+    // 创建矩形物体
+    const geometry1 = new THREE.BoxGeometry(5, 5, 5)
+    // 创建材质对象
+    const material = new THREE.MeshLambertMaterial({color: 0xffdd00, wireframe: false})
+    // 创建网格模型：表示生活中的物品
+    const mesh = new THREE.Mesh(geometry1, material)
+    const x = (Math.random() - 0.5) * 200;
+    const y = (Math.random() - 0.5) * 200;
+    const z = (Math.random() - 0.5) * 200;
+    // 设置物品所在位置
+    mesh.position.set(x, y, z)
+    // 将物品添加到场景中
+    scene.add(mesh)
+}
 
 // 环境光
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
@@ -60,25 +68,26 @@ const controls = new OrbitControls(camera, renderer.domElement)
 
 controls.update()
 
-// controls.addEventListener('change', () => {
-//     renderer.render(scene, camera)
-// })
+// 创建性能监控器
+const stats = new Stats()
+// // 默认模式：渲染帧率， 刷新频率，一秒渲染次数
+// stats.setMode(0)
+// 渲染周期，渲染一帧多长时间（单位：毫秒）
+stats.setMode(1)
+// 输出到页面
+document.body.appendChild(stats.domElement)
 
 // 创建时钟对象
 const clock = new THREE.Clock()
 
 const animate = () => {
     const spt = clock.getDelta() * 1000; // 毫秒
-
     console.log(`两帧渲染时间间隔毫秒：${spt}`)
     console.log(`帧率FPS：${1000 / spt}`)
-
-    // mesh.rotateX(0.01)
-    // mesh.rotateY(0.01)
+    // 加载性能监控器
+    stats.update()
     mesh.rotateZ(0.01)
-
     renderer.render(scene, camera)
-
     requestAnimationFrame(animate)
 }
 
