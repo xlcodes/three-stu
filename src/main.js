@@ -4,25 +4,23 @@ import Stats from "three/addons/libs/stats.module.js";
 // 创建一个场景
 const scene = new THREE.Scene()
 
-// 创建矩形物体
-// const geometry = new THREE.BoxGeometry(10, 10, 10)
 // 创建球体
-// const geometry = new THREE.SphereGeometry(10, 50, 50)
-// 创建圆柱体
-// const geometry = new THREE.CylinderGeometry(50, 50, 100)
-// 矩形平面
-// const geometry = new THREE.PlaneGeometry(200, 200)
-// 圆形平面
-const geometry = new THREE.CircleGeometry(200)
+const geometry = new THREE.SphereGeometry(10, 50, 50)
+// // 创建材质对象：漫反射材质
+// const material = new THREE.MeshLambertMaterial({
+//     color: 0xffdd00,
+//     wireframe: false,
+//     transparent: true,
+//     opacity: 0.5,
+//     side: THREE.DoubleSide, // 正反面可见
+// })
 
-// 创建材质对象
-const material = new THREE.MeshLambertMaterial({
-    color: 0xffdd00,
-    wireframe: false,
-    transparent: true,
-    opacity: 0.5,
-    side: THREE.DoubleSide, // 正反面可见
+const material = new THREE.MeshPhongMaterial({
+    color: 0x00ffff,
+    shininess: 20,
+    specular: 0x444444,
 })
+
 const mesh = new THREE.Mesh(geometry, material)
 
 mesh.position.set(0, 0, 0)
