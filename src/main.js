@@ -11,7 +11,7 @@ const material = new THREE.MeshLambertMaterial({color: 0xffdd00, wireframe: fals
 // 创建网格模型：表示生活中的物品
 const mesh = new THREE.Mesh(geometry, material)
 // 设置物品所在位置
-mesh.position.set(5, 5, 5)
+mesh.position.set(0, 0, 0)
 
 // 将物品添加到场景中
 scene.add(mesh)
@@ -58,8 +58,28 @@ scene.add(axesHelper)
 // 添加轨道控制器
 const controls = new OrbitControls(camera, renderer.domElement)
 
-controls.addEventListener('change', () => {
-    renderer.render(scene, camera)
-})
 
-renderer.render(scene, camera)
+
+// controls.addEventListener('change', () => {
+//     renderer.render(scene, camera)
+// })
+
+// 创建时钟对象
+const clock = new THREE.Clock()
+
+const animate = () => {
+    const spt = clock.getDelta() * 1000; // 毫秒
+
+    console.log(`两帧渲染时间间隔毫秒：${spt}`)
+    console.log(`帧率FPS：${1000 / spt}`)
+
+    // mesh.rotateX(0.01)
+    // mesh.rotateY(0.01)
+    mesh.rotateZ(0.01)
+
+    renderer.render(scene, camera)
+
+    requestAnimationFrame(animate)
+}
+
+animate()
