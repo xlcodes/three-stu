@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import {OrbitControls} from "three/addons/controls/OrbitControls.js";
-import Stats from "three/addons/libs/stats.module.js";
+import Stats from "./lib/Stats.js";
 import {GUI} from "three/addons/libs/lil-gui.module.min.js";
 // 创建一个场景
 const scene = new THREE.Scene()
